@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the architecture of the virtual infrastructure designed for **InnovaTech Solutions S.L.**
+This document describes the architecture of the virtual infrastructure designed for **LucasSolutions S.L.**
 
 The objective is to deploy a realistic enterprise environment based on industry best practices, providing centralized administration, secure resource management, virtualization and professional documentation.
 
