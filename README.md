@@ -1,36 +1,55 @@
 # 🚀 LucasTech Hybrid Infrastructure Solutions
 
-Este repositorio contiene toda la documentación técnica oficial, scripts de automatización empresarial y archivos de configuración esenciales correspondientes al despliegue de infraestructura híbrida para la organización **LucasTech Solutions S.L.** (bajo el espacio de nombres de dominio centralizado `://lucastech.com`).
+This repository contains the complete technical documentation, enterprise automation scripts, and core configuration files corresponding to the hybrid infrastructure deployment for **LucasTech Solutions S.L.** (under the centralized active directory domain `internal.lucastech.com`).
 
-El entorno completo ha sido diseñado, instalado y validado con éxito utilizando un modelo híbrido multiplataforma confinado de forma perimetral en un entorno virtual empresarial.
-
----
-
-## 🗺️ Topología de Red y Arquitectura del Entorno
-
-Toda la infraestructura de producción está confinada de forma estricta en un switch virtual privado aislado (**`vmbr1`**) implementado en un hipervisor **Proxmox VE**, aislando el tráfico interno de la organización de cualquier vulnerabilidad externa:
-
-*   **`DC01` (Windows Server 2022)**: Controlador de Dominio Primario. IP Fija: `192.168.10.10`. Roles activos: Servicios de Dominio de Active Directory (AD DS), Servidor DNS Autorizativo y Servidor DHCP corporativo encargado del aprovisionamiento automático de direccionamiento en la red.
-*   **`FS01` (Ubuntu Server 24.04 LTS)**: Servidor de Almacenamiento en Red. IP Dinámica mediante reserva DHCP fija: `192.168.10.51`. Rol: Servidor de archivos Samba integrado en la seguridad del dominio mediante Kerberos, permitiendo control de acceso unificado.
-*   **`CLIENT01` (Windows 10 Pro)**: Puesto de trabajo del usuario final (`ltech`). IP Dinámica por DHCP: `192.168.10.52`. Equipo corporativo unido al dominio y gestionado centralizadamente mediante directivas de grupo avanzadas.
+The entire environment has been successfully designed, deployed, and audited using an enterprise cross-platform model running inside an isolated virtual perimeter.
 
 ---
 
-## 🛠️ Soluciones e Ingeniería de Sistemas Implementada
+## 🗺️ Network Topology & Environment Architecture
 
-### 1. Automatización de Identidades con PowerShell
-Se ha implementado un script de aprovisionamiento masivo de cuentas de usuario en Active Directory (`/scripts/provision-users.ps1`). El script genera de forma dinámica las Unidades Organizativas (OUs) correspondientes a los departamentos estructurales de la empresa (Sistemas, Dirección, Contabilidad, RRHH) e inyecta las plantillas de usuario con contraseñas seguras y descripciones de rol de producción.
+The production infrastructure is strictly bound to an isolated corporate host-only bridge (**`vmbr1`**) deployed on a **Proxmox VE** hypervisor, securing all internal company data traffic from external network vulnerabilities:
 
-### 2. Almacenamiento Híbrido e Integración Multiplataforma
-Configuración y despliegue del servicio Samba en GNU/Linux (`/config/smb.conf`). Mediante la sincronización temporal estricta de relojes y el protocolo de autenticación Kerberos v5, se ha conseguido resolver el acceso cruzado transparente. Los usuarios de Active Directory de Windows pueden leer y escribir datos en caliente en el disco duro del servidor Ubuntu de forma nativa y segura.
-
-### 3. Fortalecimiento y Control de Entorno mediante GPOs
-*   **Mapeo Automático de Unidades**: Inyección centralizada en el arranque del cliente para montar el almacenamiento compartido de Linux automáticamente como la **Unidad Z:** (*Almacen LucasTech*) mediante preferencias de directiva.
-*   **Identidad y Restricción Corporativa**: Despliegue mandatorio del tapiz de escritorio oficial de la empresa a toda la plantilla desde el volumen `NETLOGON`, bloqueando cualquier intento de modificación local no autorizado por el empleado.
+*   **`DC01` (Windows Server 2022)**: Primary Domain Controller. Static IP: `192.168.10.10`. Active Roles: Active Directory Domain Services (AD DS), Authoritative DNS Server, and Corporate DHCP Server responsible for automated workstation IP provisioning.
+*   **`FS01` (Ubuntu Server 24.04 LTS)**: Enterprise Storage Server. Dynamic IP via central DHCP reservation: `192.168.10.51`. Active Role: Linux Samba File Services integrated natively into the Windows Active Directory domain via Kerberos v5 for single sign-on (SSO).
+*   **`CLIENT01` (Windows 10 Pro)**: Standard Corporate Workstation (`ltech`). Dynamic IP via DHCP: `192.168.10.52`. Fully joined to the domain and managed centralizadamente through strict Active Directory Group Policies (GPOs).
 
 ---
 
-## 📂 Contenido del Repositorio
-*   📁 **`/docs`**: Documentación de diseño arquitectónico y de negocio (`infrastructure-design.md`, `company-design.md`, `project-overview.md`).
-*   📁 **`/scripts`**: Código fuente de automatización en PowerShell de Active Directory.
-*   📁 **`/config`**: Ficheros de configuración de servicios de red en entornos Linux (Samba configuration).
+## 🛠️ Systems Engineering & Implemented Solutions
+
+### 1. Automated AD Provisioning (PowerShell)
+Developed an automated mass deployment script (`/scripts/provision-users.ps1`) to initialize the corporate Organizational Units (OUs) corresponding to the company's departments (Systems, Management, Accounting, HR) and securely provision user accounts with default parameters, security strings, and specific roles.
+
+### 2. Cross-Platform Hybrid Interoperability
+Configured active Samba storage services on GNU/Linux (`/config/smb.conf`). By enforcing strict time synchronization and negotiating ticket exchanges via Kerberos v5, Windows domain users can seamlessly read and write data directly into the Linux file system with fully integrated ACL auditing.
+
+### 3. Centralized System Hardening & Environment GPOs
+*   **Automated Drive Mapping**: Enforces a central policy that automatically mounts the Linux Samba share as **`Drive Z:`** (*Almacen LucasTech*) on user logon.
+*   **Corporate Branding Enforcement**: Centralized deployment of the official company desktop background across all workstations via `NETLOGON`, blocking any local customization attempts to ensure workplace environment uniformity.
+
+---
+
+## 📂 Repository Layout
+*   📁 **`/docs`**: Infrastructure designs and planning documentation (`infrastructure-design.md`, `company-design.md`, `project-overview.md`).
+*   📁 **`/scripts`**: Core automation files (PowerShell Active Directory provisioning).
+*   📁 **`/config`**: Linux production service layouts (Samba server configuration).
+
+---
+
+## 📸 Deployed Environment Visual Evidence
+
+### 1. Virtualization & Infrastructure Topology (Proxmox VE Console)
+![Proxmox Topology](img/proxmox-hypervisor-topology.png)
+
+### 2. Centralized Network Control (Active DHCP Scope Address Leases)
+![DHCP Address Leases](img/dhcp-leases.png)
+
+### 3. Cross-Platform Systems Integration (Linux FS01 Object inside Active Directory)
+![Active Directory Computers](img/active-directory-computers.png)
+
+### 4. Hybrid Interoperability Validation (Linux Samba Drive Z: Auto-Mounted on Client)
+![Samba Drive Z](img/unidad-z-samba.png)
+
+### 5. Centralized Workspace Hardening (Corporate Background Locked by GPO)
+![GPO Wallpaper Enforcement](img/gpo-wallpaper.png)
