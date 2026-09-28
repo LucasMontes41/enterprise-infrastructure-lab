@@ -40,10 +40,10 @@ Configured active Samba storage services on GNU/Linux (`/config/smb.conf`). By e
 ## 📸 Deployed Environment Visual Evidence
 
 ### 1. Virtualization & Infrastructure Topology (Proxmox VE Console)
-![Proxmox Topology](img/proxmox-hypervisor-topology.png)
+![Proxmox Topology](img/proxmox-hypervisor-topology.PNG)
 
 ### 2. Centralized Network Control (Active DHCP Scope Address Leases)
-![DHCP Address Leases](img/dhcp-leases.png)
+![DHCP Address Leases](img/dhcp-leases.PNG)
 
 ### 3. Cross-Platform Systems Integration (Linux FS01 Object inside Active Directory)
 ![Active Directory Computers](img/active-directory-computers.png)
